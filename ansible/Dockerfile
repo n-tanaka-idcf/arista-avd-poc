@@ -11,7 +11,9 @@ ARG WORKDIR=/app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     bash-completion \
-    sudo && \
+    sudo \
+    ca-certificates \
+    git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -23,5 +25,6 @@ COPY --from=uv /uv /uvx /bin/
 
 USER ${USER}
 WORKDIR ${WORKDIR}
-COPY --chown=${USER}:${GROUP} .python-version pyproject.toml uv.lock ./
+COPY --chown=${USER}:${GROUP} .python-version pyproject.toml uv.lock requirements.yml ./
 RUN uv python install && uv sync --frozen
+RUN uv run ansible-galaxy collection install -r requirements.yml

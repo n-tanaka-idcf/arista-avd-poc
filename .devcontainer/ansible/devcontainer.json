@@ -74,6 +74,8 @@
                 "github.vscode-github-actions",
                 // Jinja
                 "samuelcolvin.jinjahtml",
+                // Python
+                "ms-python.python",
                 // Toml
                 "tamasfe.even-better-toml",
                 // Workspace

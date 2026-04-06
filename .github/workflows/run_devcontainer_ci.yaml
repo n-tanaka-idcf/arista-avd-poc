@@ -13,6 +13,7 @@ on:
       - ansible/Dockerfile
       - ansible/postCreateCommand.sh
       - ansible/pyproject.toml
+      - ansible/requirements.toml
       - ansible/Taskfile.yml
       - ansible/uv.lock
 
