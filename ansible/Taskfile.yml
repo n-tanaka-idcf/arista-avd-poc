@@ -1,0 +1,59 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    desc: Show all tasks
+    cmds:
+      - task --list-all --sort none
+
+  pre-check:
+    desc: Check the prerequisites
+    cmds:
+      - test -f "$ANSIBLE_INVENTORY"
+
+  environment:check:
+    desc: Check required tools are available for this environment.
+    cmds:
+      - ansible --version
+      - ansible-lint --version
+      - git --version
+      - ssh -V
+      - task --version
+
+  playbook:info:
+    desc: |
+      Show the specified playbook information
+      Usage: task playbook:info -- playbook [ansible-playbook-options]
+    deps:
+      - pre-check
+    cmds:
+      - ansible-playbook --list-tasks --list-hosts --list-tags {{.CLI_ARGS}}
+
+  playbook:dry-run:
+    desc: |
+      Dry-run the specified playbook
+      Usage: task playbook:dry-run -- playbook [ansible-playbook-options]
+    deps:
+      - pre-check
+    cmds:
+      - ansible-playbook --check --diff {{.CLI_ARGS}}
+
+  playbook:run:
+    desc: |
+      Run the specified playbook
+      Usage: task playbook:run -- playbook [ansible-playbook-options]
+    deps:
+      - pre-check
+    cmds:
+      - ansible-playbook {{.CLI_ARGS}}
+
+  lint:run:
+    desc: |
+      Run ansible-lint to the specified playbook
+      Usage: task lint:run -- playbook [ansible-lint-options]
+    deps:
+      - pre-check
+    cmds:
+      - ansible-lint {{.CLI_ARGS}}

@@ -1,0 +1,69 @@
+---
+name: run_devcontainer_ci
+
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - .github/workflows/run_devcontainer_ci.yaml
+      - .devcontainer/**
+      - ansible/.python-version
+      - ansible/aqua.yaml
+      - ansible/Dockerfile
+      - ansible/postCreateCommand.sh
+      - ansible/pyproject.toml
+      - ansible/Taskfile.yml
+      - ansible/uv.lock
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_devcontainers:
+    strategy:
+      matrix:
+        devcontainer:
+          - ansible
+
+    name: Build Devcontainer for ${{ matrix.devcontainer }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show workflow run-time information
+        run: |
+          echo Workflow: ${{ github.workflow }}
+          echo Branch: ${{ github.ref }}
+          echo Tag: ${{ github.ref_name }}
+          echo Commit: ${{ github.sha }}
+          echo Building devcontainer for ${{ matrix.devcontainer }}
+
+      - name: Check Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ${{ matrix.devcontainer }}/Dockerfile
+
+      - name: Create .env file
+        run: |
+          cat <<EOF > .env
+          UID=$(id -u)
+          GID=$(id -g)
+          EOF
+
+      - name: Build and check devcontainer image
+        uses: devcontainers/ci@v0.3
+        with:
+          configFile: .devcontainer/${{ matrix.devcontainer }}/devcontainer.json
+          push: never
+          runCmd: |
+            cd /workspace/${{ matrix.devcontainer }}
+            . .envrc_common
+            task environment:check

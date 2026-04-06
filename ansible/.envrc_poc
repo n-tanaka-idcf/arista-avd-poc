@@ -1,0 +1,3 @@
+source .envrc_common
+
+export ANSIBLE_INVENTORY=./inventories/poc/hosts.ini

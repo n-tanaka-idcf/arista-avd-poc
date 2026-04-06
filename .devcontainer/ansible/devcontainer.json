@@ -1,0 +1,84 @@
+{
+    "name": "ansible",
+    "dockerComposeFile": [
+        "../../compose.yml"
+    ],
+    "service": "ansible",
+    "runServices": [
+        "ansible"
+    ],
+    "containerEnv": {
+        "DEVCONTAINER_NAME": "ansible",
+        "DEVCONTAINER_USER": "vscode",
+        "EDITOR": "code --wait",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "Asia/Tokyo",
+        "UV_PROJECT_ENVIRONMENT": "/app/.venv"
+    },
+    "remoteEnv": {
+        "PATH": "/home/${containerEnv:DEVCONTAINER_USER}/.local/bin:/home/${containerEnv:DEVCONTAINER_USER}/.local/share/aquaproj-aqua/bin:${containerEnv:PATH}",
+        "AQUA_CONFIG": "${containerWorkspaceFolder}/${containerEnv:DEVCONTAINER_NAME}/aqua.yaml"
+    },
+    "remoteUser": "vscode",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/sshd:1": {},
+        "ghcr.io/dhoeric/features/hadolint:1": {},
+        "ghcr.io/aquaproj/devcontainer-features/aqua-installer:0.1.6": {
+            "aqua_version": "v2.51.2"
+        }
+    },
+    "postCreateCommand": "bash -lc \"$DEVCONTAINER_NAME/postCreateCommand.sh\"",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                // Editor
+                "editor.formatOnSave": true,
+                // Files
+                "files.insertFinalNewline": true,
+                "files.trimFinalNewlines": true,
+                "files.trimTrailingWhitespace": true,
+                "files.associations": {
+                    "**/tasks/*.yaml": "ansible",
+                    "**/tasks/*.yml": "ansible",
+                    "**/handlers/*.yaml": "ansible",
+                    "**/handlers/*.yml": "ansible",
+                    "**/host_vars/*.yml": "ansible",
+                    "**/group_vars/*.yml": "ansible",
+                    "**/defaults/*.yaml": "ansible",
+                    "**/defaults/*.yml": "ansible",
+                    "**/vars/*.yaml": "ansible",
+                    "**/vars/*.yml": "ansible",
+                    "**/meta/*.yaml": "ansible",
+                    "**/meta/*.yml": "ansible"
+                },
+                // Python
+                "python.defaultInterpreterPath": "/app/.venv/bin/python",
+                // Ansible
+                "ansible.python.interpreterPath": "/app/.venv/bin/python",
+                "ansible.lightspeed.enabled": false,
+                "ansibleVault.executable": "/app/.venv/bin/ansible-vault",
+                // Workspace
+                "autoOpenWorkspace.enableAutoOpenAlwaysFirst": true
+            },
+            "extensions": [
+                // Ansible
+                "redhat.ansible",
+                "dhoeric.ansible-vault",
+                // Docker
+                "ms-azuretools.vscode-docker",
+                "exiasr.hadolint",
+                // Github Actions
+                "github.vscode-github-actions",
+                // Jinja
+                "samuelcolvin.jinjahtml",
+                // Toml
+                "tamasfe.even-better-toml",
+                // Workspace
+                "zoma.vscode-auto-open-workspace"
+            ]
+        }
+    }
+}
