@@ -12,8 +12,10 @@ tasks:
     desc: Check required tools are available for this environment.
     cmds:
       - ansible --version
+      - ansible-builder --version
       - ansible-galaxy --version
       - ansible-lint --version
+      - ansible-navigator --version
       - ansible-playbook --version
       - ansible-vault --version
       - git --version
