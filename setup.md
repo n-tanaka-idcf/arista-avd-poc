@@ -1,6 +1,6 @@
 # Dev Container Setup
 
-このリポジトリには Arista AVDのAnsible 開発用と Python 開発用の dev container が用意されています。
+このリポジトリには Arista AVD の Ansible 開発用と Python 開発用の dev container が用意されています。
 この手順書は、ローカルの VS Code から `Remote - SSH` で Linux ホストへ接続し、その接続先で dev container を起動する前提で記載しています。
 
 実体は以下の構成です。
@@ -154,7 +154,7 @@ Dev Containers: Reopen in Container
 
 ```bash
 cd /workspace/ansible
-. envrc_common
+. .envrc_common
 task environment:check
 ```
 
@@ -178,11 +178,12 @@ cd /workspace/python
 task environment:check
 ```
 
-Lint 実行例:
+実行例:
 
 ```bash
 cd /workspace/python
-task lint:run
+. .envrc_common
+python sample.py
 ```
 
 ## 補足
