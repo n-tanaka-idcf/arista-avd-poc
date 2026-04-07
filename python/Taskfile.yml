@@ -13,7 +13,7 @@ tasks:
     cmds:
       - git --version
       - ssh -V
-      - ruff --version
+      - uv run ruff --version
       - task --version
 
   lint:run:
@@ -21,4 +21,4 @@ tasks:
       Run ruff
       Usage: task lint:run -- [ruff-options]
     cmds:
-      - ruff check {{.CLI_ARGS}}
+      - uv run ruff check {{.CLI_ARGS}}
