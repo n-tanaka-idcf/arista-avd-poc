@@ -64,7 +64,7 @@ EOF
 
 この設定により、コンテナ内の `vscode` ユーザーと SSH 接続先ホストのユーザーの UID/GID をそろえやすくなります。
 
-## 3. Remote SSH 上で Dev Container を起動する
+## 3. Remote - SSH 上で Dev Container を起動する
 
 SSH 接続済みの VS Code ウィンドウでコマンドパレットを開き、次を実行します。
 
