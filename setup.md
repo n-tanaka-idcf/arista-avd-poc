@@ -1,6 +1,6 @@
 # Dev Container Setup
 
-このリポジトリには Ansible 開発用と Python 開発用の dev container が用意されています。
+このリポジトリには Arista AVD の Ansible 開発用と Python 開発用の dev container が用意されています。
 この手順書は、ローカルの VS Code から `Remote - SSH` で Linux ホストへ接続し、その接続先で dev container を起動する前提で記載しています。
 
 実体は以下の構成です。
@@ -154,21 +154,8 @@ Dev Containers: Reopen in Container
 
 ```bash
 cd /workspace/ansible
-task environment:check
-```
-
-必要に応じて共通環境を読み込みます。
-
-```bash
-cd /workspace/ansible
 . .envrc_common
-```
-
-POC inventory を使う場合は以下です。
-
-```bash
-cd /workspace/ansible
-. .envrc_poc
+task environment:check
 ```
 
 `ANSIBLE_INVENTORY=./inventories/poc/hosts.ini` が必要なタスクは、`.envrc_poc` 読み込み後に実行してください。
@@ -187,49 +174,16 @@ task playbook:info -- playbooks/sample.yml
 
 ```bash
 cd /workspace/python
+. .envrc_common
 task environment:check
 ```
 
-Lint 実行例:
+実行例:
 
 ```bash
 cd /workspace/python
-task lint:run
-```
-
-## 6. SSH 接続先で手動ビルドする場合
-
-dev container のベースとなるサービスは `compose.yml` で定義されています。
-VS Code の `Reopen in Container` を使わずに確認したい場合は、SSH 接続先ホストでリポジトリルートから次を実行します。
-
-### Ansible 用 dev container を手動で起動する
-
-```bash
-docker compose build ansible
-docker compose up -d ansible
-docker compose exec ansible bash
-```
-
-コンテナに入った後の確認例:
-
-```bash
-cd /workspace/ansible
-task environment:check
-```
-
-### Python 用 dev container を手動で起動する
-
-```bash
-docker compose build python
-docker compose up -d python
-docker compose exec python bash
-```
-
-コンテナに入った後の確認例:
-
-```bash
-cd /workspace/python
-task environment:check
+. .envrc_common
+python sample.py
 ```
 
 ## 補足

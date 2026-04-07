@@ -13,7 +13,7 @@ tasks:
     cmds:
       - git --version
       - ssh -V
-      - uv run ruff --version
+      - ruff --version
       - task --version
 
   lint:run:
