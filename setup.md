@@ -158,14 +158,11 @@ cd /workspace/ansible
 task environment:check
 ```
 
-`ANSIBLE_INVENTORY=./inventories/poc/hosts.ini` が必要なタスクは、`.envrc_poc` 読み込み後に実行してください。
-
 実行例:
 
 ```bash
-cd /workspace/ansible
-. .envrc_poc
-task playbook:info -- playbooks/sample.yml
+cd /workspace/ansible/avd_examples/single-dc-l3ls
+ansible-playbook build.yml
 ```
 
 ### Python 用 dev container の確認
