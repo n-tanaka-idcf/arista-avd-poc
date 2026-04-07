@@ -12,3 +12,15 @@ services:
     restart: always
     volumes:
       - .:/workspace
+  python:
+    build:
+      context: python/
+      dockerfile: Dockerfile
+      args:
+        - UID
+        - GID
+    tty: true
+    stdin_open: true
+    restart: always
+    volumes:
+      - .:/workspace

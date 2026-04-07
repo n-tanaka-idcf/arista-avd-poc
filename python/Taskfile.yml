@@ -1,0 +1,24 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    desc: Show all tasks
+    cmds:
+      - task --list-all --sort none
+
+  environment:check:
+    desc: Check required tools are available for this environment.
+    cmds:
+      - git --version
+      - ssh -V
+      - ruff --version
+      - task --version
+
+  lint:run:
+    desc: |
+      Run ruff
+      Usage: task lint:run -- [ruff-options]
+    cmds:
+      - ruff check {{.CLI_ARGS}}

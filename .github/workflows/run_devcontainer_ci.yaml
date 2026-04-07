@@ -16,6 +16,13 @@ on:
       - ansible/requirements.yml
       - ansible/Taskfile.yml
       - ansible/uv.lock
+      - python/.python-version
+      - python/aqua.yaml
+      - python/Dockerfile
+      - python/postCreateCommand.sh
+      - python/pyproject.toml
+      - python/Taskfile.yml
+      - python/uv.lock
 
 defaults:
   run:
@@ -31,6 +38,7 @@ jobs:
       matrix:
         devcontainer:
           - ansible
+          - python
 
     name: Build Devcontainer for ${{ matrix.devcontainer }}
     runs-on: ubuntu-latest
