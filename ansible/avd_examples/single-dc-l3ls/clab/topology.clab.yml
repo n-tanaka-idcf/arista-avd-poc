@@ -10,7 +10,7 @@ topology:
     kinds:
         arista_ceos:
             enforce-startup-config: true
-            image: arista/ceos:latest
+            image: registry.idcfcloud.com/vds/ceos:4.34.5M
             binds:
                 - interface_mapping.json:/mnt/flash/EosIntfMapping.json:ro
     defaults:
