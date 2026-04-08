@@ -1,0 +1,24 @@
+name: minimal-evpn-vxlan
+
+topology:
+  kinds:
+    arista_ceos:
+      image: registry.idcfcloud.com/vds/ceos:4.34.5M
+  nodes:
+    spine1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.11
+    leaf1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.101
+    leaf2:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.102
+
+  links:
+    - endpoints: ["spine1:eth1", "leaf1:eth1"]
+    - endpoints: ["spine1:eth2", "leaf2:eth1"]
+
+mgmt:
+  network: custom-mgmt
+  ipv4-subnet: 172.100.100.0/24
