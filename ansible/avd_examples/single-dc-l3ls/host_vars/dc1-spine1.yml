@@ -1,0 +1,14 @@
+# AVDのデータモデルに存在する場合
+# custom_structured_configuration_radius_server:
+#   servers:
+#     - host: 10.10.10.1
+#       tls:
+#         enabled: true
+#         ssl_profile: RADIUS_TLS_PROFILE
+#         port: 2083
+
+# AVDのデータモデルに存在しない場合
+# platform_settings:
+#   - platforms: [default]
+#     raw_eos_cli: |
+#       alias avd-test-raw show version
